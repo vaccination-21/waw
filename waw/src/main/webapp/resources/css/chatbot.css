@@ -1,0 +1,135 @@
+@charset "UTF-8";
+@charset "UTF-8";
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+/* 	border: 0; */
+	font-size: 100%;
+  font-family: 'Nanum Gothic',Jua, sans-serif;
+	font: inherit;
+  color: #000;
+	vertical-align: baseline;
+}
+
+body {
+  background-color: #fff;
+}
+
+li {
+  margin-bottom: 10px;
+}
+
+.float_div {
+  display: flex;
+}
+
+.chat_home {
+  width: 60vw;
+  height: 100vh;
+}
+
+.chat_intro {
+  padding-top: 30%;
+  padding-left: 30%;
+}
+
+.chat_home .chat_intro .title {
+  font-family: 'Jua';
+  font-size: 50px;
+  margin-bottom: 50px;
+}
+
+.chat_home .chat_intro .sub_title {
+  padding-left: 10%;
+}
+
+.wrap {  
+  width: 40vw; 	
+  height: 100vh; 
+  text-align: center;
+  /* padding-top: vh; */
+} 
+
+
+#chatHeader {
+  margin: 10px 10px;
+  margin-top: 5em;
+  padding: 10px 15px; 
+ }
+#btnClose {border: none; background: none; float: right;}
+ 
+#chatBox { 
+  font-family: 'Noto Sans KR', sans-serif;
+  margin: auto;
+  height: 60vh; 
+  width: 600px;  
+  padding:10px 15px; 
+  background-color: #ebebeb;
+    overflow:auto;
+  }
+
+.wrap .chat_input{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50px;
+  padding-left: 1;
+}
+
+form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#message {
+  width: 550px;
+  padding: 10px;
+}
+
+#btnSubmit {
+  font-family: 'Noto Sans KR', sans-serif;
+  background:#fef01b;
+  color:#000;
+  border:none;
+  /* position:relative; */
+  height:40px;
+  font-size:15px;
+  padding:0 10px;
+  cursor:pointer;
+  transition:800ms ease all;
+  outline:none;
+}
+
+#btnSubmit:hover{
+  background:#fff;
+  color:#2f68f0;
+}
+
+.float_div .sub_wrap {
+  width: 20vw;
+}
+
+
+.msgBox > span {padding:3px 5px; word-break:break-all; display:block; 
+							 max-width:300px; margin-bottom: 10px; border-radius: 10px}
+.msgBox.send > span {background:#8ec051; float:right;}
+.msgBox.receive > .name{
+  text-align: left;
+  padding:0;
+}
+/* .msgBox.receive > .dsc {background:#2f68f0; float:left;} */
+
