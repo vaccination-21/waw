@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration 	PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+	<typeAliases>
+		<typeAlias type="mc.sn.waw.member.vo.MemberVO"  alias="memberVO" />
+		<typeAlias type="mc.sn.waw.chatroom.vo.ChatRoomVO"  alias="ChatRoomVO" />
+		<typeAlias type="mc.sn.waw.chatroom.vo.ChatRoomJoinVO"  alias="ChatRoomJoinVO" />
+	</typeAliases>
+</configuration>

@@ -192,7 +192,20 @@
 		    <artifactId>mysql-connector-java</artifactId>
 		    <version>8.0.20</version>
 		</dependency>
-	
+		
+
+		<!-- mybatis -->
+		<dependency>
+		    <groupId>org.mybatis</groupId>
+		    <artifactId>mybatis</artifactId>
+		    <version>3.1.0</version>
+		</dependency>
+		<dependency>
+		    <groupId>org.mybatis</groupId>
+		    <artifactId>mybatis-spring</artifactId>
+		    <version>1.1.1</version>
+		</dependency>
+				
 		<!-- Test -->
 		<dependency>
 			<groupId>junit</groupId>
