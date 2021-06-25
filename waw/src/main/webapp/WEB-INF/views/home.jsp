@@ -2,6 +2,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page session="false" %>
+<c:set var="contextPath"  value="${pageContext.request.contextPath}"  />
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
@@ -13,6 +14,18 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Jua&family=Nanum+Gothic:wght@700&display=swap" rel="stylesheet">
   <title>메인 로그인 페이지</title>
+	<c:if test='${not empty message }'>
+	<script>
+	window.onload=function()
+	{
+	  result();
+	}
+	
+	function result(){
+		alert("아이디나  비밀번호가 틀립니다. 다시 로그인해주세요");
+	}
+	</script>
+	</c:if>
 </head>
 <body>
   <div class="main-body">
@@ -29,7 +42,7 @@
     <div class="right-body">
       <div class="login_container">
         <div class="form_container">
-            <form name="login_form" action="#" method="get">
+            <form action="${contextPath}/member/login.do" method="post">
                 <div class="form_title_div">
                     <p class="form_title_p">WAW</p>
                 </div>
@@ -40,7 +53,7 @@
                 </div>
                 <div>
                     <div>
-                        <input type="text" name="email" placeholder="전화번호, 사용자 또는 이메일" class="form_input"/>
+                        <input type="text" name="name" placeholder="이름" class="form_input" value="admin"/>
                     </div>
                     <div class="form_text_alert_padding">
                         <div id="alert_email" class="form_text_alert"></div>
@@ -48,7 +61,7 @@
                 </div>
                 <div>
                     <div>
-                        <input type="password" name="password" placeholder="비밀번호" class="form_input" />
+                        <input type="password" name="pwd" placeholder="비밀번호" class="form_input" value="1234" />
                     </div>
                     <div class="form_text_alert_padding">
                         <div id="alert_password" class="form_text_alert"></div>
@@ -58,7 +71,7 @@
                 </div>
                 <div style="height: 10px;"></div>
                 <div>
-                    <button type="button" class="form_submit_button" onclick="login()">로그인</button>
+                    <button type="submit" class="form_submit_button">로그인</button>
                 </div>
             </form>
         </div>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+      PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mapper.chatRoomJoin">
+	<resultMap id="roomJoinResult" type="ChatRoomJoinVO">
+      <result property="tid" column="tid" />
+      <result property="roomTid" column="roomTid" />
+      <result property="roomJoinCreationDate" column="roomJoinCreationDate" /> 
+    </resultMap>
+	
+   <!--방 들어가기-->
+   <insert id="insertChatRoomJoin"  parameterType="ChatRoomJoinVO">
+		<![CDATA[
+			 INSERT INTO chatRoomJoin
+    			(tid, roomTid)
+			 VALUES
+			    (#{tid}, #{roomTid})
+		 
+		]]>      
+   </insert>
+    <!--  ON DUPLICATE KEY UPDATE roomTid= VALUES(#{roomTid}) and tid=VALUES(#{tid}) -->
+   <!-- 챗방 나가기 -->
+   <delete id="deleteChatRoomJoin"  parameterType="ChatRoomJoinVO">
+	<![CDATA[
+	   delete from chatRoomJoin
+	   where
+	   roomTid=#{roomTid} and tid=#{tid}
+	]]>      
+   </delete>
+</mapper>

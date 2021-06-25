@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+      PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mapper.chatRoom">
+    <resultMap id="roomResult" type="ChatRoomVO">
+      <result property="roomTid" column="roomTid" />
+      <result property="title" column="title" />
+      <result property="roomCreationDate" column="roomCreationDate" />
+    </resultMap>
+   
+    <!-- 모든 방 리스트 --> 
+  	<select id="selectAllChatRoomList" resultMap="roomResult">
+      <![CDATA[
+         select * from chatRoom	 	
+      ]]>
+	</select>
+   
+   <!--방 만들기-->
+   <insert id="insertChatRoom"  parameterType="ChatRoomVO">
+		<![CDATA[
+			 INSERT INTO chatRoom
+    			(title)
+			 VALUES
+			    (#{title})
+		]]>      
+   </insert> 
+   
+   <!-- 특정 방 가져오기 --> 
+   <select id="selectChatRoomByRoomTid" resultType="ChatRoomVO"  parameterType="Integer" >
+      <![CDATA[
+         select * from chatRoom
+         where
+         roomTid=#{roomTid}
+      ]]>
+   </select>
+   
+   <!-- 챗방 나가기 -->
+   <delete id="deleteChatRoom"  parameterType="Integer">
+	<![CDATA[
+	   delete from chatRoom
+	   where
+	   roomTid=#{roomTid}
+	]]>      
+   </delete>
+   
+   
+</mapper>
