@@ -1,0 +1,40 @@
+CREATE TABLE userTBL
+(
+    `tid`           INT            NOT NULL    AUTO_INCREMENT COMMENT '프라이머리 키', 
+    `id`            VARCHAR(45)    NOT NULL    COMMENT '아이디', 
+    `pwd`           VARCHAR(45)    NOT NULL    COMMENT '비밀번호', 
+    `pwdRe`         VARCHAR(45)    NOT NULL    COMMENT '비밀번호 확인', 
+    `name`          VARCHAR(45)    NOT NULL    COMMENT '이름', 
+    `nickname`      VARCHAR(45)    NOT NULL    COMMENT '닉네임', 
+    `birth`         DATE           NOT NULL    COMMENT '생년월일', 
+    `gender`        VARCHAR(45)    NOT NULL    COMMENT '성별', 
+    `phone`         VARCHAR(45)    NOT NULL    COMMENT '휴대폰번호', 
+    `creationDate`  TIMESTAMP      NOT NULL    DEFAULT CURRENT_TIMESTAMP COMMENT '생성일', 
+    `modDate`       TIMESTAMP      NOT NULL    DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '수정일', 
+    CONSTRAINT  PRIMARY KEY (tid)
+);
+
+select * from userTBL;
+
+ALTER TABLE userTBL COMMENT '유저테이블';
+
+CREATE TABLE chatRoom
+(
+    `roomTid`           INT            NOT NULL    AUTO_INCREMENT COMMENT '프라이/방번호', 
+    `title`             VARCHAR(45)    NOT NULL    COMMENT '방이름', 
+    `RoomCreationDate`  TIMESTAMP      NOT NULL    DEFAULT CURRENT_TIMESTAMP COMMENT '생성시간', 
+    CONSTRAINT PK_chatRoom PRIMARY KEY (roomTid)
+);
+
+select * from chatRoom;
+
+-- userId 생성 x로 인한 chatRoomJoin 테이블 생성 불가
+CREATE TABLE chatRoomJoin
+(
+    `tid`               INT          NOT NULL    COMMENT '사용자ID', 
+    `roomTid`               INT          NOT NULL    COMMENT '방ID', 
+    `roomJoinCreationDate`  TIMESTAMP    NOT NULL    DEFAULT CURRENT_TIMESTAMP COMMENT '생성시간', 
+    CONSTRAINT PK_chatRoomJoin PRIMARY KEY (userTId, roomTId)
+);
+
+select * from chatRoomJoin;
