@@ -1,6 +1,7 @@
 package mc.sn.waw.member.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.dao.DataAccessException;
 
@@ -19,5 +20,7 @@ public interface MemberDAO {
 	 public MemberVO searchMember(Integer tid) throws DataAccessException;
 	 //정보 업데이트
 	 public int updateMember(MemberVO memberVO) throws DataAccessException;
+	 
+	 public MemberVO login(Map loginMap) throws DataAccessException;
 	
 }

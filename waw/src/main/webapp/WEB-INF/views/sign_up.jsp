@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>  
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<c:set var="contextPath"  value="${pageContext.request.contextPath}"  />
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -18,9 +20,9 @@
     <div class="main-body">
       <div class="login_container">
         <div class="form_container">
-            <form name="login_form" action="#" method="get">
+            <form name="login_form" action="${contextPath}/member/addMember.do" method="post">
                 <div class="form_title_div">
-                    <p class="form_title_p">WAW</p>
+                    <p class="form_title_p">WAW 회원 가입창</p>
                 </div>
                 <div>
                     <div class="form_text_alert_padding">
@@ -29,7 +31,7 @@
                 </div>
                 <div>
                     <div>
-                        <input type="text" name="email" placeholder="전화번호, 사용자 또는 이메일" class="form_input"/>
+                        <input type="text" name="name" placeholder="이름" class="form_input"/>
                     </div>
                     <div class="form_text_alert_padding">
                         <div id="alert_email" class="form_text_alert"></div>
@@ -37,7 +39,15 @@
                 </div>
                 <div>
                     <div>
-                        <input type="password" name="password" placeholder="비밀번호" class="form_input" />
+                        <input type="text" name="id" placeholder="이메일" class="form_input"/>
+                    </div>
+                    <div class="form_text_alert_padding">
+                        <div id="alert_email" class="form_text_alert"></div>
+                    </div>
+                </div>
+                <div>
+                    <div>
+                        <input type="password" name="pwd" placeholder="비밀번호" class="form_input" />
                     </div>
                     <div class="form_text_alert_padding">
                         <div id="alert_password" class="form_text_alert"></div>
@@ -47,7 +57,7 @@
                 </div>
                 <div style="height: 10px;"></div>
                 <div>
-                    <button type="button" class="form_submit_button" onclick="login()">가입</button>
+                    <button type="submit" class="form_submit_button">가입</button>
                 </div>
             </form>
         </div>

@@ -1,6 +1,7 @@
 package mc.sn.waw.member.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,4 +54,9 @@ public class MemberDAOImpl implements MemberDAO {
 		return result;
 	}
 
+	public MemberVO login(Map loginMap ) throws DataAccessException{
+		MemberVO member = (MemberVO)sqlSession.selectOne("mapper.member.login",loginMap);
+		System.out.println(member);
+		return member;
+	}
 }

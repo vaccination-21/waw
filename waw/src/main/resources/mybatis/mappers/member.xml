@@ -29,9 +29,9 @@
    <insert id="insertMember"  parameterType="memberVO">
 		<![CDATA[
 			 INSERT INTO userTBL
-    			(id, pwd, pwdRe, name, nickname, birth, gender, phone)
+    			(id, pwd, name)
 			 VALUES
-			    (#{id}, #{pwd}, #{pwdRe}, #{name}, #{nickname}, #{birth}, #{gender}, #{phone})
+			    (#{id}, #{pwd}, #{name})
 		]]>      
    </insert>
 
@@ -70,6 +70,12 @@
 		where id=#{id, jdbcType=VARCHAR} and pwd=#{pwd, jdbcType=VARCHAR}		
 	]]>
   </select>
+  	<select id="login" resultType="memberVO" parameterType="java.util.Map">
+		<![CDATA[
+			select * from userTBL
+			where name=#{name} and pwd=#{pwd}
+		]]>
+	</select>
   
    
 	<!-- 

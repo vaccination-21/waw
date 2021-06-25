@@ -1,6 +1,7 @@
 package mc.sn.waw.member.controller;
 
-import java.util.List;
+import java.util.List; 
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -44,7 +45,25 @@ public class MemberControllerImpl   implements MemberController {
 		request.setCharacterEncoding("utf-8");
 		int result = 0;
 		result = memberService.addMember(member);
-		ModelAndView mav = new ModelAndView("redirect:/member/listMembers.do");
+		ModelAndView mav = new ModelAndView("redirect:/chatbot");
+		return mav;
+	}
+	
+	// 로그인 로직
+	@Override
+	@RequestMapping(value = "/member/login.do", method = RequestMethod.POST)
+	public ModelAndView loginAccess(@RequestParam Map<String, String> loginMap, HttpServletRequest request, HttpServletResponse response) throws Exception  {
+		ModelAndView mav = new ModelAndView();
+		memberVO = memberService.login(loginMap);
+		System.out.println(memberVO);
+		
+		if(memberVO != null && memberVO.getName() != null) {		
+			mav.setViewName("redirect:/chatbot");			
+		}else {
+			String message = "아이디나 비밀번호가 틀립니다. 다시 로그인해주세요 ㅜ.ㅜ";
+			mav.addObject("message", message);
+			mav.setViewName("redirect:/");
+		}
 		return mav;
 	}
 	
@@ -90,7 +109,7 @@ public class MemberControllerImpl   implements MemberController {
 		return mav;
 	}
 	
-	@RequestMapping(value = { "/login/loginForm.do"}, method =  RequestMethod.GET)
+	@RequestMapping(value = { "/login/loginForm.do"}, method =  RequestMethod.POST)
 	public ModelAndView loginform(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String viewName = getViewName(request);
 		ModelAndView mav = new ModelAndView();
@@ -98,25 +117,7 @@ public class MemberControllerImpl   implements MemberController {
 		return mav;
 	}
 	
-	@Override
-	@RequestMapping(value = "/login/chatbotForm.do", method = {RequestMethod.GET})
-	public ModelAndView login(@ModelAttribute("info") MemberVO member,
-				              RedirectAttributes rAttr,
-		                       HttpServletRequest request, HttpServletResponse response) throws Exception {
-	ModelAndView mav = new ModelAndView();
-	String viewName = this.getViewName(request);
-	memberVO = memberService.login(member);
 
-	if(memberVO != null) {
-	    HttpSession session = request.getSession();
-	    session.setAttribute("member", memberVO);
-	} else {
-		System.out.println(member.getId() + "," + member.getPwd());
-	}
-	mav.setViewName(viewName);	
-	return mav;
-	
-	}
 	
 	//방 여러개..?
 	@RequestMapping(value = "/login/*Form.do", method =  RequestMethod.GET)
@@ -126,6 +127,8 @@ public class MemberControllerImpl   implements MemberController {
 		mav.setViewName(viewName);
 		return mav;
 	}
+	
+
 	
 	/*
 	 * private String getViewName(HttpServletRequest request) throws Exception {

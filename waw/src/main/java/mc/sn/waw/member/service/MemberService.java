@@ -1,6 +1,7 @@
 package mc.sn.waw.member.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.dao.DataAccessException;
 
@@ -12,5 +13,5 @@ public interface MemberService {
 	 public int removeMember(Integer tid) throws DataAccessException; 
 	 public MemberVO searchMember(Integer tid) throws DataAccessException;
 	 public int updateMember(MemberVO memberVO) throws DataAccessException;
-	 public MemberVO login(MemberVO memberVO) throws Exception; 
+	 public MemberVO login(Map loginMap) throws Exception; 
 }

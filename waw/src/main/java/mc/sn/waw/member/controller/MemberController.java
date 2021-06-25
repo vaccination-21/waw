@@ -1,5 +1,7 @@
 package mc.sn.waw.member.controller;
 
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -17,5 +19,7 @@ public interface MemberController {
 	public ModelAndView searchMember(@RequestParam("tid") Integer tid, HttpServletRequest request, HttpServletResponse response) throws Exception;
 	public ModelAndView updateMember(@ModelAttribute("info") MemberVO memberVO,HttpServletRequest request, HttpServletResponse response) throws Exception;
 	//로그인
-	public ModelAndView login(@ModelAttribute("info") MemberVO member,RedirectAttributes rAttr, HttpServletRequest request, HttpServletResponse response) throws Exception;
+	public ModelAndView loginAccess(@RequestParam Map<String, String> loginMap,HttpServletRequest request, HttpServletResponse response) throws Exception;
+	
+	
 }

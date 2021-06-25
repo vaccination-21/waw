@@ -1,6 +1,7 @@
 package mc.sn.waw.member.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -16,10 +17,10 @@ import mc.sn.waw.member.vo.MemberVO;
 public class MemberServiceImpl implements MemberService {
 	@Autowired
 	private MemberDAO memberDAO;
-
+	
 	@Override
 	public List listMembers() throws DataAccessException {
-		List membersList = null;
+		List<?> membersList = null;
 		membersList = memberDAO.selectAllMemberList();
 		return membersList;
 	}
@@ -45,9 +46,8 @@ public class MemberServiceImpl implements MemberService {
 	}
 	
 	@Override
-	public MemberVO login(MemberVO memberVO) throws Exception{
-		MemberVO vo = null;
-		vo = memberDAO.loginById(memberVO);
-		return vo;
+	public MemberVO login(Map loginMap) throws Exception{
+		System.out.println(loginMap);
+		return memberDAO.login(loginMap);
 	}
 }
