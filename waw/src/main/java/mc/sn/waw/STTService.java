@@ -98,7 +98,7 @@ public class STTService {
             conn.setRequestProperty("Content-Type", "application/octet-stream");
             conn.setRequestProperty("X-NCP-APIGW-API-KEY-ID", clientId);
             conn.setRequestProperty("X-NCP-APIGW-API-KEY", clientSecret);
-
+            
             OutputStream outputStream = conn.getOutputStream();
             FileInputStream inputStream = new FileInputStream(voiceFile);
             byte[] buffer = new byte[4096];
@@ -124,10 +124,12 @@ public class STTService {
                     response.append(inputLine);
                 }
                 br.close();
+                
                 System.out.println(response.toString()); //결과 출력 (JSON 형식의 문자열)
                 result = jsonToString(response.toString());
-//                resultToFileSave(result);
+//              //resultToFileSave(result);
                 resultToFileSave2(result);
+                
             } else {
                 System.out.println("error !!!");
             }

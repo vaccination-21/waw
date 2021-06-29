@@ -38,12 +38,12 @@ public class HomeController {
 		return "chatbot";
 	}
 	
-	@RequestMapping(value = "/echo", method = RequestMethod.GET)
+	@RequestMapping(value = "/echo",produces = "application/text; charset=utf8", method = RequestMethod.GET)
 	public String chatting(Locale locale, Model model) {
 		
 		return "chatting";
 	}
-	@RequestMapping(value = "/chat.do", method = RequestMethod.GET)
+	@RequestMapping(value = "/chat.do", produces = "application/text; charset=utf8",method = RequestMethod.GET)
 	public String view_chat() throws Exception {
 		
 		return "view_chat";
