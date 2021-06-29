@@ -1,5 +1,4 @@
 @charset "UTF-8";
-@charset "UTF-8";
 
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
@@ -31,7 +30,6 @@ body {
 .main{
   width: 100%;
   padding: 0;
-  padding-top: 50px;
   margin: 0;
 }
 
@@ -47,3 +45,11 @@ body {
 .main .voice {
   text-align: center;
 }
+
+.main .title {
+  text-align: center;
+  padding: 10px;
+  font-size: 20px;
+  font-family: 'Jua';
+}
+

@@ -321,8 +321,11 @@
 </head>
 <body>
 	 <div class="main">
+    <div class="title">
+      👨🏼‍🤝‍👨🏻 WAW 채팅방입니다. from <span style="color: green;">spring websocket</span> <br>
+    </div>
     <div
-		  style="width: 800px; height: 700px; padding: 10px; border: solid 1px #e1e3e9;">
+		  style="width: 800px; height: 500px; padding: 10px; border: solid 1px #e1e3e9;">
       <div id="divChatData"></div>
     </div>
     <div style="width: 100%; height: 10%; padding: 10px;">
@@ -343,5 +346,6 @@
       </div>
     </div>  
   </div>
+
 </body>
 </html>
