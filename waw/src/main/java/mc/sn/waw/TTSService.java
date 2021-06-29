@@ -39,6 +39,7 @@ public class TTSService {
 	            // post request
 	            String postParams = "speaker=" + language + "&volume=0&speed=0&pitch=0&format=mp3&text=" + text;
 	            con.setDoOutput(true);
+	            System.out.println("tts conncetion success");
 	            DataOutputStream wr = new DataOutputStream(con.getOutputStream());
 	            wr.writeBytes(postParams);
 	            wr.flush();
@@ -62,6 +63,7 @@ public class TTSService {
 	                    outputStream.write(bytes, 0, read);
 	                }
 	                is.close();
+	                System.out.println(voiceFileName);
 	            } else {  // 오류 발생
 	                br = new BufferedReader(new InputStreamReader(con.getErrorStream()));
 	                String inputLine;

@@ -1,6 +1,5 @@
 package mc.sn.waw;
 import java.util.ArrayList;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -35,6 +34,7 @@ public class HandlerChat extends TextWebSocketHandler {
 		case "CMD_ENTER":
 			// ���� ����Ʈ�� ����
 			Map<String, Object> map = new HashMap<String, Object>();
+			System.out.println(mapReceive);
 			map.put("bang_id", mapReceive.get("bang_id"));
 			map.put("session", session);
 			sessionList.add(map);
@@ -43,13 +43,14 @@ public class HandlerChat extends TextWebSocketHandler {
 			for (int i = 0; i < sessionList.size(); i++) {
 				Map<String, Object> mapSessionList = sessionList.get(i);
 				String bang_id = (String) mapSessionList.get("bang_id");
+				System.out.println("bang_id : " + bang_id);
 				WebSocketSession sess = (WebSocketSession) mapSessionList.get("session");
 				
 				if(bang_id.equals(mapReceive.get("bang_id"))) {
 					Map<String, String> mapToSend = new HashMap<String, String>();
 					mapToSend.put("bang_id", bang_id);
 					mapToSend.put("cmd", "CMD_ENTER");
-					mapToSend.put("msg", session.getId() +  "���� ���� �߽��ϴ�.");
+					mapToSend.put("msg","👋 " + session.getId() +  "님이 입장하셨습니다.");
 					
 					String jsonStr = objectMapper.writeValueAsString(mapToSend);
 					sess.sendMessage(new TextMessage(jsonStr));
@@ -64,7 +65,8 @@ public class HandlerChat extends TextWebSocketHandler {
 				Map<String, Object> mapSessionList = sessionList.get(i);
 				String bang_id = (String) mapSessionList.get("bang_id");
 				WebSocketSession sess = (WebSocketSession) mapSessionList.get("session");
-
+				System.out.println(mapReceive);
+				System.out.println(mapSessionList);
 				if (bang_id.equals(mapReceive.get("bang_id"))) {
 					Map<String, String> mapToSend = new HashMap<String, String>();
 					mapToSend.put("bang_id", bang_id);
@@ -111,7 +113,7 @@ public class HandlerChat extends TextWebSocketHandler {
 				Map<String, String> mapToSend = new HashMap<String, String>();
 				mapToSend.put("bang_id", bang_id);
 				mapToSend.put("cmd", "CMD_EXIT");
-				mapToSend.put("msg", session.getId() + "���� ���� �߽��ϴ�.");
+				mapToSend.put("msg", "❌ " + session.getId() + "님이 퇴장하셨습니다.");
 
 				String jsonStr = objectMapper.writeValueAsString(mapToSend);
 				sess.sendMessage(new TextMessage(jsonStr));

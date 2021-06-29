@@ -34,16 +34,17 @@ body {
 }
 
 .main div {
-  width: 100%;
   margin: auto;
 }
 
-.main form {
+#chatForm {
   text-align: center;
+  padding-top: 10px;
 }
 
-.main .voice {
+.voice {
   text-align: center;
+  padding-top: 10px;
 }
 
 .main .title {

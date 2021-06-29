@@ -24,6 +24,7 @@
 			sendChat: function() {
 				this._sendMessage('${param.bang_id}', 'CMD_MSG_SEND', $('#message').val());
 				$('#message').val('');
+				//alert("hi");
 			},
 			sendEnter: function() {
 				this._sendMessage('${param.bang_id}', 'CMD_ENTER', $('#message').val());
@@ -73,10 +74,24 @@
 			}
 		};
 		
+		
+
+		$("#btnSend").click(function() {
+			sendMessage();
+			$('#message').val('')
+		});
+		
+	
+	      $(window).on('load', function () {
+				webSocket.init({ url: '<c:url value="/chat" />' });	
+			});		
+		
+		
+		
 		$(function(){
 			// 웰컴 메시지 받기 위해서 message 란에 입력 받기 전에
 			//빈 값으로 서버에 전송하고 웰컴 메시지 받음
-			callAjax(); // message 값 없이 서버로 전송
+			// message 값 없이 서버로 전송
 			$('audio').hide();
 			
 			///////////////////////////////////////////////////////////////
@@ -139,7 +154,8 @@
 		                       a.href=audioURL;                   
 		                       a.download = clipName;                      
 		                      //a.innerHTML = "DOWN"
-								a.click(); // 다운로드 폴더에 저장하도록 클릭 이벤트 발생		
+		                      
+/* 								a.click(); // 다운로드 폴더에 저장하도록 클릭 이벤트 발생		 */
 								
 								//서버로 업로드: 다운로드 후 1초 대기
 								/*setTimeout(function(){
@@ -163,7 +179,7 @@
 		       }   
 			
 			
-			
+		});
 			///////////////////////////////////////////////////////////////
 			
 			/* 서버에 업로드 */
@@ -175,7 +191,8 @@
 				$.ajax({
 					type:"post",
 					url:"clovaSTT2",
-					//dataType:'application/json;UTF-8',/*추가*/
+					async:false,
+					//dataType:"application/text; charset=UTF-8",
 					data: formData, // 폼 데이터 전송
 					processData:false, //필수
 					contentType:false, //필수
@@ -183,16 +200,27 @@
 						/* chatBox에 보낸 메시지 추가 (동적 요소 추가) */ /* 넌 누구니? */
 						//$('#messageArea').append('<div class="msgBox send"><span>' +
 						//							result + '</span></div><br>');	
-						webSocket.sendChat(result);
+						
+						//webSocket._socket.send("");
 						//챗봇에게 전달
-						$('#message').val(result);	
-						callAjax();		
+						$('#message').val(result);
+						webSocket.sendChat();
 						$('#message').val('');
+						callAjaxTTS(result);
+						//$('audio').prop("c", '/ai/' + 'tts__1624494930089.mp3')[0].play();
+						
+						//var audio = new Audio('c/ai/tts__1624494930089.mp3');
+						//audio.play();
+						console.log("play");
+						
 					},
 					error:function(e){
-						alert("에러 발생 : " + e);
-					}			
+						alert("에러 발생 file upload: " + e);
+					}		
 				});
+				
+				
+				
 			}
 			
 			
@@ -207,7 +235,7 @@
 													$('#message').val() + '</span></div><br>');		
 				}
 				
-				callAjax();
+				//callAjax();
 				/* 입력란 비우기 */
 				$('#message').val('');
 				
@@ -216,107 +244,28 @@
 			///////////////////////////////////////////////////
 			// 이미지/멀티링크 답변 포함된 답변 처리
 				
-			function callAjax(){
-				$.ajax({
-					type:"post",
-					//dataType:'application/json;UTF-8',/*추가*/
-					url:"chatbotCall",
-					data:{message:$('#message').val()},
-					success:function(result){	  //JSON  형식 그대로 받음
-						result = JSON.parse(result);
-						//alert(result);
-						//console.log(result);
-						var bubbles = result.bubbles;
-						//alert(bubbles);
-						for(var b in bubbles){
-							//alert(bubbles[b]);
-							console.log([b]);
-							if(bubbles[b].type == 'text'){ //기본 답변인 경우
-								/*chatBox에 받은 메시지 출력 (챗봇의 답변))*/
-								$('#divChatData').append('<div class="msgBox receive"><br>챗봇<br><span>' +
-													bubbles[b].data.description + '</span></div><br><br>');	
-								//챗봇으로 부터 받은 텍스트 답변을 음성으로 변환하기 위해  TTS  호출
-								callAjaxTTS(bubbles[b].data.description);		
-								//alert(bubbles+", "+bubbles[b].data.description);			
-							} else if(bubbles[b].type == 'template'){  //이미지 답변 또는 멀티링크 답변인 경우
-								if(bubbles[b].data.cover.type == 'image'){ //이미지인 경우
-									// 이미지 출력
-									$('#divChatData').append("<img src='" +  bubbles[b].data.cover.data.imageUrl +  "'  alt=' 이미지 없음' >");	
-									
-									// 이미지만 있는 경우 / 이미지 + 텍스트 경우
-									if(bubbles[b].data.contentTable == null){   //이미지만 있는 경우 url  추출
-										$('#divChatData').append("<a href='" + bubbles[b].data.cover.data.url + "' target='_blank'> " +
-										bubbles[b].data.cover.data.url + "</a><br>" );
-										
-									} else{  //이미지+ 텍스트인 경우 텍스트와  url 추출
-										//텍스트만 추출하고 멀티링크와 공통되는 contentTable은 아래에서 다중 for문 사용해서  url 추출
-										$('#divChatData').append("<p>" + bubbles[b].data.cover.data.description + "</p>");	
-										//챗봇으로 부터 받은 텍스트 답변을 음성으로 변환하기 위해  TTS  호출
-										callAjaxTTS(bubbles[b].data.cover.data.description);
-									}
-									
-								} else if(bubbles[b].data.cover.type == 'text'){ //멀터링크인 경우
-									$('#divChatData').append("<p>" + bubbles[b].data.cover.data.description + "</p>");	
-										//챗봇으로 부터 받은 텍스트 답변을 음성으로 변환하기 위해  TTS  호출
-										callAjaxTTS(bubbles[b].data.cover.data.description);
-								}
-								
-								//이미지/멀티링크 답변 공통 (contentTable  포함)
-								for(var ct in bubbles[b].data.contentTable){
-									var ct_data = bubbles[b].data.contentTable[ct];
-									for(var ct_d in ct_data){
-										$('#divChatData').append("<a href='" + ct_data[ct_d].data.data.action.data.url + "' target='_blank'> " +
-										ct_data[ct_d].data.data.action.data.url + "</a><br>" );
-									}
-								}						
-							}
-							
-						} // bubbles for 문 종료
-													
-						/* 스크롤해서 올리기 */
-						$('#divChatData').scrollTop($('#divChatData').prop("scrollHeight"));
-						
-						
-					},
-					error:function(e){
-						alert("에러 발생 : " + e);
-					}			
-				});
-			}
-			
-			///////////////////////////////////////////////////
 			
 			function callAjaxTTS(result){
 				$.ajax({
 					type:"post",
-					//dataType:'application/json;UTF-8',/*추가*/
+					//dataType:"application/x-www-form-urlencoded; charset=UTF-8",
 					url:"chatbotTTS",
+					//async:false,
+
 					data:{message:result},
-					success:function(result){				
+					success:function(result){
 						$('audio').prop("c", '/ai/' + result)[0].play();
-						$('audio').hide();
+						console.log(result);
+						
+						
+						
 					},
 					error:function(e){
-						alert("에러 발생 : " + e);
+						alert("에러 발생 call ajax tts: " + e);
 					}			
 				});
 				
 			}
-			
-		}); // $(function()  끝
-
-
-
-			$("#btnSend").click(function() {
-				sendMessage();
-				$('#message').val('')
-			});
-			
-		
-	        $(window).on('load', function () {
-				webSocket.init({ url: '<c:url value="/chat" />' });	
-			});	
-		
 	</script>
 </head>
 <body>
@@ -325,21 +274,21 @@
       👨🏼‍🤝‍👨🏻 WAW 채팅방입니다. from <span style="color: green;">spring websocket</span> <br>
     </div>
     <div
-		  style="width: 800px; height: 500px; padding: 10px; border: solid 1px #e1e3e9;">
-      <div id="divChatData"></div>
+		  style="width: 800px; height: 500px; padding: 10px; height: 75vh; border: solid 1px #e1e3e9;">
+      <div id="divChatData" style="overflow: scroll; height: 100%;"></div>
     </div>
-    <div style="width: 100%; height: 10%; padding: 10px;">
-      <form id="chatForm" method="post">
+<!--     <div style="width: 100%;"> -->
+      <div id="chatForm">
         <input type="text" id="message" size="110"
           onkeypress="if(event.keyCode==13){webSocket.sendChat();}" /> <input
           type="button" id="btnSend" value="채팅 전송"
           onclick="webSocket.sendChat()" />
-      </form>
+      </div>
     </div>
     <div class="voice">
-      음성 메시지 :
-      <button id="record">녹음</button>
-      <button id="stop">정지</button>
+      📢 음성으로 채팅해요 
+      <button id="record">소리 녹음</button>
+      <button id="stop">소리 전송</button>
       <div id="sound-clips"></div>
       <div>
         <audio preload="auto" controls></audio>
