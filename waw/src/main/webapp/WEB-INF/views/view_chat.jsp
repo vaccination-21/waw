@@ -6,6 +6,11 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>웹소켓 채팅</title>
+<link rel="stylesheet" href="resources/css/view_chat.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Jua&family=Nanum+Gothic:wght@700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="view_chat.css">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script
@@ -315,24 +320,28 @@
 	</script>
 </head>
 <body>
-	<div
-		style="width: 800px; height: 700px; padding: 10px; border: solid 1px #e1e3e9;">
-		<div id="divChatData"></div>
-	</div>
-	<div style="width: 100%; height: 10%; padding: 10px;">
-		<form id="chatForm" method="post">
-			<input type="text" id="message" size="110"
-				onkeypress="if(event.keyCode==13){webSocket.sendChat();}" /> <input
-				type="button" id="btnSend" value="채팅 전송"
-				onclick="webSocket.sendChat()" />
-		</form>
-	</div>
-	음성 메시지 :
-	<button id="record">녹음</button>
-	<button id="stop">정지</button>
-	<div id="sound-clips"></div>
-	<div>
-		<audio preload="auto" controls></audio>
-	</div>
+	 <div class="main">
+    <div
+		  style="width: 800px; height: 700px; padding: 10px; border: solid 1px #e1e3e9;">
+      <div id="divChatData"></div>
+    </div>
+    <div style="width: 100%; height: 10%; padding: 10px;">
+      <form id="chatForm" method="post">
+        <input type="text" id="message" size="110"
+          onkeypress="if(event.keyCode==13){webSocket.sendChat();}" /> <input
+          type="button" id="btnSend" value="채팅 전송"
+          onclick="webSocket.sendChat()" />
+      </form>
+    </div>
+    <div class="voice">
+      음성 메시지 :
+      <button id="record">녹음</button>
+      <button id="stop">정지</button>
+      <div id="sound-clips"></div>
+      <div>
+        <audio preload="auto" controls></audio>
+      </div>
+    </div>  
+  </div>
 </body>
 </html>
