@@ -28,6 +28,34 @@
 	</c:if>
 </head>
 <body>
+<c:choose>
+	<c:when test="${not empty msg}">
+		<div class="user_login" style="	font-family: 'Nanum Gothic';color: #fff;
+									    position: absolute;
+									    bottom: 20%;
+									    left: 0px;
+									    width: 300px;
+									    height: 100px;
+									    margin-left: 2%;
+									    background-color: #0d2230;
+									    text-align: center;
+									    padding: 20px;">
+									    🤗 서비스 이용을 위해 로그인 해주세요 <br><br><span style="padding-top:10px;color: red;font-size:40px;font-weight: bolder;">👫 이용 불가능<span></div>
+	</c:when>
+	<c:otherwise>
+	<div class="user_login" style="	font-family: 'Nanum Gothic'; color: #fff;
+									    position: absolute;
+									    bottom: 20%;
+									    left: 0px;
+									    width: 300px;
+									    height: 100px;
+									    margin-left: 2%;
+									    background-color: #0d2230;
+									    text-align: center;
+									    padding: 20px;">
+									    🤗 서비스를 이용해주세요. <br><br><span style="padding-top:10px;color: #2ed7be;font-size:40px;font-weight: bolder;">👫 이용 가능<span></div>
+	</c:otherwise>
+</c:choose>
   <div class="main-body">
     <div class="left-body">
       <div class="intro-name">

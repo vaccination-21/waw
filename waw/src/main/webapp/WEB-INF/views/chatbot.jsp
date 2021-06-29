@@ -14,9 +14,6 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Jua&family=Nanum+Gothic:wght@700&display=swap" rel="stylesheet">
-   <script>
-   	alert("환연합니다. :) admin 님") 
-   </script>
 
 </head>
 <body>
@@ -27,6 +24,17 @@
           👨🏼‍🤝‍👨🏻 WAW 챗봇 주의사항
         </div>
         <div class="sub_title">
+       	<div class="user_login" style="	color: #fff;
+									    position: absolute;
+									    bottom: 20%;
+									    left: 0px;
+									    width: 300px;
+									    height: 100px;
+									    margin-left: 2%;
+									    background-color: #0d2230;
+									    text-align: center;
+									    padding: 20px;">
+									    🤗 ${userId}님  현재 로그인 상태입니다.<br><span style="color: #2ed7be;font-size:40px;font-weight: bolder;">👫 이용 가능<span></div>
           <ol>
             <li>취미, 취업 2가지 분야 중 선택 가능해요.</li>
             <li>잘못된 응답에는 자동 답변이 안될 수 있어요.</li>
@@ -39,7 +47,7 @@
     <div class="wrap">
       <!-- Header -->
       <div id="chatHeader">
-        <span>@ 2021. WAW from NAVER CLOVA Cabot</span>
+        <span>@ 2021. WAW from NAVER CLOVA Chabot</span>
         <!-- <button id="btnClose">X</button> -->
 
       </div>
