@@ -11,7 +11,8 @@
 	///////////////////////////////////////////////////////////////
 	/* 음성 질문 녹음 */
 	
-	const record = document.getElementById("record");
+	
+		const record = document.getElementById("record");
         const stop = document.getElementById("stop");
         const soundClips = document.getElementById("sound-clips");
 
@@ -62,19 +63,19 @@
                         
                         chunks = [];
                         const audioURL = URL.createObjectURL(blob);
-                        audio.src = audioURL;
-                        a.href=audio.src;
-                        blob:http://localhost:9090/chat
+           //             audio.src = audioURL;
+                       // a.href=audio.src;
+                        /*blob:http:localhost:9090/chat*/
                         a.href=audioURL;                   
                         a.download = clipName;                      
-                       a.innerHTML = "DOWN"
-						a.click(); // 다운로드 폴더에 저장하도록 클릭 이벤트 발생		
+                //       a.innerHTML = "DOWN"
+					/*	a.click(); // 다운로드 폴더에 저장하도록 클릭 이벤트 발생		
 						
 						//서버로 업로드: 다운로드 후 1초 대기
 						setTimeout(function(){
 							fileUpload(clipName + ".mp3"); //파일명
 						}, 1000);
-						//파일 다운로드 하지 않으니까 1초 대기할 필요 없음
+						//파일 다운로드 하지 않으니까 1초 대기할 필요 없음*/
 						fileUpload(blob, clipName); //파일 데이터와 파일명 전달
 						
 										
@@ -110,13 +111,27 @@
 			contentType:false, //필수
 			success:function(result){
 				/* chatBox에 보낸 메시지 추가 (동적 요소 추가) */ /* 넌 누구니? */
-				$('#chatBox').append('<div class="msgBox send"><span>' +
-											result + '</span></div><br>');	
+				/* $('#chatBox').append('<div class="msgBox send"><span>' +
+											result + '</span></div><br>');	*/
 											
-				//챗봇에게 전달
-				$('#message').val(result);	
-				callAjax();		
-				$('#message').val('');
+						//							result + '</span></div><br>');	
+						
+						//webSocket._socket.send("");
+					//챗봇에게 전달
+						$('#message').val(result);
+						$('#chatBox').append('<div class="msgBox send"><span>' +
+								$('#message').val() + '</span></div><br>');		
+						callAjax();
+						/* 입력란 비우기 */
+						$('#message').val('');
+						callAjaxTTS(result);
+						
+						//$('audio').prop("c", '/ai/' + 'tts__1624494930089.mp3')[0].play();
+						
+						//var audio = new Audio('c/ai/tts__1624494930089.mp3');
+						//audio.play();
+						console.log("play");
+						
 			},
 			error:function(e){
 				alert("에러 발생 : " + e);
@@ -226,9 +241,10 @@
 			success:function(result){				
 				$('audio').prop("src", '/ai/' + result)[0].play();
 				//$('audio').hide();
+				consolo.log(result);
 			},
 			error:function(e){
-				alert("에러 발생 : " + e);
+				alert("에러 발생 : call ajax tts" + e);
 			}			
 		});
 		

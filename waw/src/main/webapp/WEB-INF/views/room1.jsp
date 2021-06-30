@@ -13,6 +13,17 @@
   <title>취미 분야 채팅방</title>
 </head>
 <body>
+     	<div class="user_login" style="	color: #fff;
+									    position: absolute;
+									    bottom: 20%;
+									    left: 0px;
+									    width: 300px;
+									    height: 100px;
+									    margin-left: 2%;
+									    background-color: #0d2230;
+									    text-align: center;
+									    padding: 20px;">
+									    🤗 ${userId}님  현재 로그인 상태입니다.<br><br><span style="color: #2ed7be;font-size:40px;font-weight: bolder;">👫 이용 가능<span></div>
   <div class="main_intro">
     <div class="title">
       <div class="main_title">

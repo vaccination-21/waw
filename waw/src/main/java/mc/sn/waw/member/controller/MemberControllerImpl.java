@@ -9,6 +9,8 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -52,21 +54,26 @@ public class MemberControllerImpl   implements MemberController {
 	// 로그인 로직
 	@Override
 	@RequestMapping(value = "/member/login.do", method = RequestMethod.POST)
-	public ModelAndView loginAccess(@RequestParam Map<String, String> loginMap, HttpServletRequest request, HttpServletResponse response) throws Exception  {
+	public ModelAndView loginAccess(@RequestParam Map<String, String> loginMap, HttpServletRequest request, HttpServletResponse response, Model model) throws Exception  {
 		ModelAndView mav = new ModelAndView();
 		memberVO = memberService.login(loginMap);
 		System.out.println(memberVO);
+		String id = loginMap.get("name");
+		System.out.println(loginMap.get("name"));
 		
-		if(memberVO != null && memberVO.getName() != null) {		
+		if(memberVO != null && memberVO.getName() != null) {
+			HttpSession sess = request.getSession();
+			sess.setAttribute("id", id); 
 			mav.setViewName("redirect:/chatbot");			
 		}else {
+			HttpSession sess = request.getSession();
 			String message = "아이디나 비밀번호가 틀립니다. 다시 로그인해주세요 ㅜ.ㅜ";
-			mav.addObject("message", message);
+			sess.setAttribute("msg", message );
 			mav.setViewName("redirect:/");
 		}
 		return mav;
 	}
-	
+
 	@Override
 	@RequestMapping(value="/member/removeMember.do" ,method = RequestMethod.GET)
 	public ModelAndView removeMember(@RequestParam("tid") Integer tid, 

@@ -60,7 +60,6 @@ li {
   width: 40vw; 	
   height: 100vh; 
   text-align: center;
-  /* padding-top: vh; */
 } 
 
 
@@ -132,4 +131,5 @@ form {
   padding:0;
 }
 /* .msgBox.receive > .dsc {background:#2f68f0; float:left;} */
+
 
