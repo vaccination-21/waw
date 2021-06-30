@@ -43,11 +43,14 @@ public class MemberControllerImpl   implements MemberController {
 	@Override
 	@RequestMapping(value="/member/addMember.do" ,method = RequestMethod.POST)
 	public ModelAndView addMember(@ModelAttribute("member") MemberVO member,
-			                  HttpServletRequest request, HttpServletResponse response) throws Exception {
+			                  HttpServletRequest request, HttpServletResponse response ,Model model) throws Exception {
 		request.setCharacterEncoding("utf-8");
 		int result = 0;
+		
 		result = memberService.addMember(member);
-		ModelAndView mav = new ModelAndView("redirect:/chatbot");
+
+		
+		ModelAndView mav = new ModelAndView("redirect:/");
 		return mav;
 	}
 	
@@ -72,6 +75,18 @@ public class MemberControllerImpl   implements MemberController {
 			mav.setViewName("redirect:/");
 		}
 		return mav;
+	}
+	
+	@RequestMapping(value = "/member/logout.do")
+	public ModelAndView logoutAccess(HttpSession session) {
+		ModelAndView mav = new ModelAndView();
+		session.invalidate();
+		
+		
+		mav.setViewName("redirect:/");
+		
+		return mav;
+		
 	}
 
 	@Override

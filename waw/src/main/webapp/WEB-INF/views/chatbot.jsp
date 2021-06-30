@@ -278,17 +278,7 @@
           👨🏼‍🤝‍👨🏻 WAW 챗봇 주의사항
         </div>
         <div class="sub_title">
-       	<div class="user_login" style="	color: #fff;
-									    position: absolute;
-									    bottom: 20%;
-									    left: 0px;
-									    width: 300px;
-									    height: 100px;
-									    margin-left: 2%;
-									    background-color: #0d2230;
-									    text-align: center;
-									    padding: 20px;">
-									    🤗 ${userId}님  현재 로그인 상태입니다.<br><span style="color: #2ed7be;font-size:40px;font-weight: bolder;">👫 이용 가능<span></div>
+ 
           <ol>
             <li>취미, 취업 2가지 분야 중 선택 가능해요.</li>
             <li>잘못된 응답에는 자동 답변이 안될 수 있어요.</li>
@@ -336,6 +326,34 @@
     </div>
     <div class="sub_wrap">
     </div>
+    <c:choose>
+	<c:when test="${empty userId}">
+		<div class="user_login" style="	 font-family: 'Nanum Gothic';color: #fff;
+									    position: absolute;
+									    bottom: 20%;
+									    left: 0px;
+									    width: 300px;
+									    height: 100px;
+									    margin-left: 2%;
+									    background-color: #0d2230;
+									    text-align: center;
+									    padding: 20px;;">
+									    🤗 서비스 이용을 위해 <a href="/waw" style="color:red;">로그인</a> 해주세요 <br><br><span style="padding-top:10px;color: red;font-size:40px;font-weight: bolder;">👫 이용 불가능<span></div>
+	</c:when>
+	<c:otherwise>
+	<div class="user_login" style="    font-family: 'Nanum Gothic'; color: #fff;
+									    position: absolute;
+									    bottom: 20%;
+									    left: 0px;
+									    width: 300px;
+									    height: 100px;
+									    margin-left: 2%;
+									    background-color: #0d2230;
+									    text-align: center;
+									    padding: 20px;">
+									    🤗 ${userId}님  현재 로그인 상태입니다. <br><a href="/waw/member/logout.do" style="color:red;">로그아웃 및 나가기</a><br><span style="padding-top:10px;color: #2ed7be;font-size:40px;font-weight: bolder;">👫 이용 가능<span></div>
+	</c:otherwise>
+</c:choose>
   </div>
 </body>
 </html>
