@@ -22,12 +22,12 @@
 				this._initSocket();
 			},
 			sendChat: function() {
-				this._sendMessage('${param.bang_id}', 'CMD_MSG_SEND', $('#message').val());
+				this._sendMessage('${param.bang_id}', 'CMD_MSG_SEND', $('#message').val(), '${userId}');
 				$('#message').val('');
 				//alert("hi");
 			},
 			sendEnter: function() {
-				this._sendMessage('${param.bang_id}', 'CMD_ENTER', $('#message').val());
+				this._sendMessage('${param.bang_id}', 'CMD_ENTER', $('#message').val(), '${userId}');
 				$('#message').val('');
 			},
 			receiveMessage: function(msgData) {
@@ -63,11 +63,12 @@
 					webSocket.closeMessage(JSON.parse(evt.data));
 				}
 			},
-			_sendMessage: function(bang_id, cmd, msg) {
+			_sendMessage: function(bang_id, cmd, msg, userId) {
 				var msgData = {
 						bang_id : bang_id,
 						cmd : cmd,
-						msg : msg
+						msg : msg,
+						user : userId
 				};
 				var jsonData = JSON.stringify(msgData);
 				this._socket.send(jsonData);
@@ -271,7 +272,7 @@
 <body>
 	 <div class="main">
     <div class="title">
-      👨🏼‍🤝‍👨🏻 WAW 채팅방입니다. from <span style="color: green;">spring websocket</span> <br>
+      👨🏼‍🤝‍👨🏻 WAW 소통해요 :) <br>
     </div>
     <div
 		  style="width: 800px; height: 500px; padding: 10px; height: 75vh; border: solid 1px #e1e3e9;">
@@ -295,6 +296,36 @@
       </div>
     </div>  
   </div>
+<c:choose>
+	<c:when test="${empty userId}">
+		<div class="user_login" style="	    font-family: 'Nanum Gothic';
+												    color: #fff;
+												    position: absolute;
+												    top: 5%;
+												    right: 0px;
+												    width: 300px;
+												    height: 100px;
+												    margin-right: 2%;
+												    background-color: #0d2230;
+												    text-align: center;
+												    padding: 20px;">
+									    🤗 서비스 이용을 위해 <a href="/waw" style="color:red;">로그인</a> 해주세요 <br><br><span style="padding-top:10px;color: red;font-size:40px;font-weight: bolder;">👫 이용 불가능<span></div>
+	</c:when>
+	<c:otherwise>
+	<div class="user_login" style="    font-family: 'Nanum Gothic';
+									    color: #fff;
+									    position: absolute;
+									    top: 5%;
+									    right: 0px;
+									    width: 300px;
+									    height: 100px;
+									    margin-right: 2%;
+									    background-color: #0d2230;
+									    text-align: center;
+									    padding: 20px;">
+									    🤗 ${userId}님  현재 로그인 상태입니다. <br><a href="/waw/member/logout.do" style="color:red;">로그아웃 및 나가기</a><br><span style="padding-top:10px;color: #2ed7be;font-size:40px;font-weight: bolder;">👫 이용 가능<span></div>
+	</c:otherwise>
+</c:choose>
 
 </body>
 </html>

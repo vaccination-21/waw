@@ -15,12 +15,13 @@ import mc.sn.waw.member.vo.MemberVO;
 
 public interface MemberController {
 	public ModelAndView listMembers(HttpServletRequest request, HttpServletResponse response) throws Exception;
-	public ModelAndView addMember(@ModelAttribute("info") MemberVO memberVO,HttpServletRequest request, HttpServletResponse response) throws Exception;
+	public ModelAndView addMember(@ModelAttribute("info") MemberVO memberVO,HttpServletRequest request, HttpServletResponse response, Model model) throws Exception;
 	public ModelAndView removeMember(@RequestParam("tid") Integer tid, HttpServletRequest request, HttpServletResponse response) throws Exception;
 	public ModelAndView searchMember(@RequestParam("tid") Integer tid, HttpServletRequest request, HttpServletResponse response) throws Exception;
 	public ModelAndView updateMember(@ModelAttribute("info") MemberVO memberVO,HttpServletRequest request, HttpServletResponse response) throws Exception;
 	//로그인
 	public ModelAndView loginAccess(@RequestParam Map<String, String> loginMap,HttpServletRequest request, HttpServletResponse response, Model model) throws Exception;
+	
 	
 	
 }

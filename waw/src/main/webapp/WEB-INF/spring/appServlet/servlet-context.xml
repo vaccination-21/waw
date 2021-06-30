@@ -62,6 +62,7 @@
 		</websocket:handshake-interceptors>
 		<websocket:sockjs websocket-enabled="true" />
 	</websocket:handlers>
+	
 
 	<beans:bean id="handlerChat" class="mc.sn.waw.HandlerChat" />
 	

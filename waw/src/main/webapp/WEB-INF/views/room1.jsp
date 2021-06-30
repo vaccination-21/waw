@@ -13,17 +13,36 @@
   <title>취미 분야 채팅방</title>
 </head>
 <body>
-     	<div class="user_login" style="	color: #fff;
+<c:choose>
+	<c:when test="${empty userId}">
+		<div class="user_login" style="	    font-family: 'Nanum Gothic';
+												    color: #fff;
+												    position: absolute;
+												    top: 5%;
+												    right: 0px;
+												    width: 300px;
+												    height: 100px;
+												    margin-right: 2%;
+												    background-color: #0d2230;
+												    text-align: center;
+												    padding: 20px;">
+									    🤗 서비스 이용을 위해 <a href="/waw" style="color:red;">로그인</a> 해주세요 <br><br><span style="padding-top:10px;color: red;font-size:40px;font-weight: bolder;">👫 이용 불가능<span></div>
+	</c:when>
+	<c:otherwise>
+	<div class="user_login" style="    font-family: 'Nanum Gothic';
+									    color: #fff;
 									    position: absolute;
-									    bottom: 20%;
-									    left: 0px;
+									    top: 5%;
+									    right: 0px;
 									    width: 300px;
 									    height: 100px;
-									    margin-left: 2%;
+									    margin-right: 2%;
 									    background-color: #0d2230;
 									    text-align: center;
 									    padding: 20px;">
-									    🤗 ${userId}님  현재 로그인 상태입니다.<br><br><span style="color: #2ed7be;font-size:40px;font-weight: bolder;">👫 이용 가능<span></div>
+									    🤗 ${userId}님  현재 로그인 상태입니다. <br><a href="/waw/member/logout.do" style="color:red;">로그아웃 및 나가기</a><br><span style="padding-top:10px;color: #2ed7be;font-size:40px;font-weight: bolder;">👫 이용 가능<span></div>
+	</c:otherwise>
+</c:choose>
   <div class="main_intro">
     <div class="title">
       <div class="main_title">
