@@ -22,12 +22,12 @@
 				this._initSocket();
 			},
 			sendChat: function() {
-				this._sendMessage('${param.bang_id}', 'CMD_MSG_SEND', $('#message').val());
+				this._sendMessage('${param.bang_id}', 'CMD_MSG_SEND', $('#message').val(), '${userId}');
 				$('#message').val('');
 				//alert("hi");
 			},
 			sendEnter: function() {
-				this._sendMessage('${param.bang_id}', 'CMD_ENTER', $('#message').val());
+				this._sendMessage('${param.bang_id}', 'CMD_ENTER', $('#message').val(), '${userId}');
 				$('#message').val('');
 			},
 			receiveMessage: function(msgData) {
@@ -63,11 +63,12 @@
 					webSocket.closeMessage(JSON.parse(evt.data));
 				}
 			},
-			_sendMessage: function(bang_id, cmd, msg) {
+			_sendMessage: function(bang_id, cmd, msg, userId) {
 				var msgData = {
 						bang_id : bang_id,
 						cmd : cmd,
-						msg : msg
+						msg : msg,
+						user : userId
 				};
 				var jsonData = JSON.stringify(msgData);
 				this._socket.send(jsonData);

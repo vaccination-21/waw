@@ -51,7 +51,10 @@ public class HomeController {
 		return "chatting";
 	}
 	@RequestMapping(value = "/chat.do", produces = "application/text; charset=utf8",method = RequestMethod.GET)
-	public String view_chat() throws Exception {
+	public String view_chat(HttpServletRequest request, Model model) throws Exception {
+		HttpSession sess = request.getSession();
+		String session = (String)sess.getAttribute("id");
+		model.addAttribute("userId", session);
 		
 		return "view_chat";
 	}

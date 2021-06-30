@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Component;
+import org.springframework.ui.Model;
 import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
@@ -21,13 +22,17 @@ public class HandlerChat extends TextWebSocketHandler {
 	// (<"bang_id", ��ID>, <"session", ����>) - (<"bang_id", ��ID>, <"session", ����>) - (<"bang_id", ��ID>, <"session", ����>) ���� 
 	private List<Map<String, Object>> sessionList = new ArrayList<Map<String, Object>>();
 	
+	
+	
 	// Ŭ���̾�Ʈ�� ������ �޼��� ���� ó��
 	@Override
 	protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
 
 		super.handleTextMessage(session, message);
-        
 		
+
+		Map<String, Object> user = session.getAttributes();
+		String userId = (String) user.get("id");
 		
 		// JSON --> Map���� ��ȯ
 		ObjectMapper objectMapper = new ObjectMapper();
@@ -41,6 +46,7 @@ public class HandlerChat extends TextWebSocketHandler {
 			Map<String, Object> map = new HashMap<String, Object>();
 			System.out.println(mapReceive);
 			map.put("bang_id", mapReceive.get("bang_id"));
+			map.put("userId", mapReceive.get("user"));
 			map.put("session", session);
 			sessionList.add(map);
 			
@@ -48,14 +54,18 @@ public class HandlerChat extends TextWebSocketHandler {
 			for (int i = 0; i < sessionList.size(); i++) {
 				Map<String, Object> mapSessionList = sessionList.get(i);
 				String bang_id = (String) mapSessionList.get("bang_id");
+				String user_id = (String) mapSessionList.get("userId");
+			
+
 				System.out.println("bang_id : " + bang_id);
 				WebSocketSession sess = (WebSocketSession) mapSessionList.get("session");
 				
 				if(bang_id.equals(mapReceive.get("bang_id"))) {
+					
 					Map<String, String> mapToSend = new HashMap<String, String>();
 					mapToSend.put("bang_id", bang_id);
 					mapToSend.put("cmd", "CMD_ENTER");
-					mapToSend.put("msg","👋 " + session.getId() +  "님이 입장하셨습니다.");
+					mapToSend.put("msg","👋 " + userId +  "님이 입장하셨습니다.");
 					
 					String jsonStr = objectMapper.writeValueAsString(mapToSend);
 					sess.sendMessage(new TextMessage(jsonStr));
@@ -69,6 +79,7 @@ public class HandlerChat extends TextWebSocketHandler {
 			for (int i = 0; i < sessionList.size(); i++) {
 				Map<String, Object> mapSessionList = sessionList.get(i);
 				String bang_id = (String) mapSessionList.get("bang_id");
+				String user_id = (String) mapSessionList.get("userId");
 				WebSocketSession sess = (WebSocketSession) mapSessionList.get("session");
 				System.out.println(mapReceive);
 				System.out.println(mapSessionList);
@@ -76,7 +87,7 @@ public class HandlerChat extends TextWebSocketHandler {
 					Map<String, String> mapToSend = new HashMap<String, String>();
 					mapToSend.put("bang_id", bang_id);
 					mapToSend.put("cmd", "CMD_MSG_SEND");
-					mapToSend.put("msg", session.getId() + " : " + mapReceive.get("msg"));
+					mapToSend.put("msg", userId + " : " + mapReceive.get("msg"));
 
 					String jsonStr = objectMapper.writeValueAsString(mapToSend);
 					sess.sendMessage(new TextMessage(jsonStr));
@@ -91,6 +102,9 @@ public class HandlerChat extends TextWebSocketHandler {
 	public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
 
 		super.afterConnectionClosed(session, status);
+		
+		Map<String, Object> user = session.getAttributes();
+		String userId = (String) user.get("id");
         
 		ObjectMapper objectMapper = new ObjectMapper();
 		String now_bang_id = "";
@@ -118,7 +132,7 @@ public class HandlerChat extends TextWebSocketHandler {
 				Map<String, String> mapToSend = new HashMap<String, String>();
 				mapToSend.put("bang_id", bang_id);
 				mapToSend.put("cmd", "CMD_EXIT");
-				mapToSend.put("msg", "❌ " + session.getId() + "님이 퇴장하셨습니다.");
+				mapToSend.put("msg", "❌ " + userId + "님이 퇴장하셨습니다.");
 
 				String jsonStr = objectMapper.writeValueAsString(mapToSend);
 				sess.sendMessage(new TextMessage(jsonStr));
